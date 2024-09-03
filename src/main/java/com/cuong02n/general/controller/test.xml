@@ -1,0 +1,20 @@
+<!-- A large HTML here-->
+<tr>
+    <td>
+        <div id="ctl00_ctl00_contentPane_MainPanel_MainContent_ASPxCaptcha1_IMGD" class="dxca-imageDiv"
+             style="line-height:0px;font-size:0px;">
+            <img id="ctl00_ctl00_contentPane_MainPanel_MainContent_ASPxCaptcha1_IMG"
+                 src="/DXB.axd?DXCache=effdd445-f4e4-d00f-6fc6-4a525d53c41b" alt="Captcha image" height="80"
+                 width="200"/>
+        </div>
+    </td>
+    <td class="dxcaRefreshButtonCell_Mulberry"
+        style="vertical-align:Bottom;padding-left:16px;padding-right:0px;padding-top:0px;padding-bottom:0px;">
+        <a class="dxcaRefreshButton_Mulberry" id="ctl00_ctl00_contentPane_MainPanel_MainContent_ASPxCaptcha1_RB"
+           href="javascript:;">
+            <img id="ctl00_ctl00_contentPane_MainPanel_MainContent_ASPxCaptcha1_RIMG"
+                 class="dxEditors_caRefresh_Mulberry" src="/DXR.axd?r=1_87-Yk9Cr" alt="Show another code"/>
+        </a>
+    </td>
+</tr>
+<!-- A large HTML here-->
