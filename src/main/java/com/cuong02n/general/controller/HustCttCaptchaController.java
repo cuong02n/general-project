@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class HustCttCaptchaController {
     final HustCttCaptchaService captchaService;
 
-    @GetMapping("")
-    public ResponseEntity<?> generateCaptcha() {
-        return ResponseEntity.status(302).header("Location", captchaService.getCaptchaImageUrl()).build();
-    }
+//    @GetMapping("")
+//    public ResponseEntity<?> generateCaptcha() {
+//        return ResponseEntity.status(302).header("Location", captchaService.getCaptchaImageUrl()).build();
+//    }
 
-    @GetMapping("fetch-model-captcha")
-    public void fetchModelCaptcha(@RequestParam("time") int time) {
-        captchaService.getAndSaveMultipleCaptchaImage(time);
-    }
+//    @GetMapping("fetch-model-captcha")
+//    public void fetchModelCaptcha(@RequestParam("time") int time) {
+//        captchaService.getAndSaveMultipleCaptchaImage(time);
+//    }
 }

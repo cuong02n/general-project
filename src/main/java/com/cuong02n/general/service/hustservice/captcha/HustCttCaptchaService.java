@@ -1,5 +1,6 @@
 package com.cuong02n.general.service.hustservice.captcha;
 
+import com.cuong02n.general.model.HustCttLoginPage;
 import lombok.RequiredArgsConstructor;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -35,58 +38,44 @@ public class HustCttCaptchaService {
     @Value("${hust.ctt.captcha.root-folder-saved-image}")
     String rootFolderSavedImage;
 
-    public void getAndSaveMultipleCaptchaImage(int time) {
-        for (int i = 0; i < time; i++) {
-            String captchaUrl = getCaptchaImageUrl();
-            System.out.println("Fetching: " + captchaUrl);
-            getAndSaveCaptchaImage(captchaUrl);
-        }
-    }
-
-    public void getAndSaveCaptchaImage(String url) {
-        File savedImageFile = new File(rootFolderSavedImage + url.substring(url.lastIndexOf("=") + 1) + ".png");
-        if (savedImageFile.exists()) throw new RuntimeException("Captcha exist: " + url);
+    //    /**
+//     * Not use.
+//     * @param time: quantity of Captcha image save to server
+//     */
+//    public void getAndSaveMultipleCaptchaImage(int time) {
+//        for (int i = 0; i < time; i++) {
+//            String captchaUrl = getCaptchaImageUrl();
+//            System.out.println("Fetching: " + captchaUrl);
+//            getAndSaveCaptchaImage(captchaUrl);
+//        }
+//    }
+//
+    public byte[] getCaptchaImage(String url) {
         try (
                 CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(new HttpGet(url));
-                FileOutputStream fos = new FileOutputStream(savedImageFile);
         ) {
-            byte[] imageByte = response.getEntity().getContent().readAllBytes();
-            fos.write(imageByte);
+            return response.getEntity().getContent().readAllBytes();
         } catch (Exception e) {
             log.error("Cannot download image {}", url, e);
+            throw new RuntimeException("Cannot download image: " + url, e);
         }
     }
 
-    public String getCaptchaImageUrl() {
-        HustCttLoginPage loginPage = getLoginPage();
-        String pathGetCaptchaImage = loginPage.getHtmlContent().substring(loginPage.getHtmlContent().indexOf("src=\"/DXB.axd?DXCache") + 6, endIndexDxCacheSrc);
+    public String getCaptchaImageUrl(HustCttLoginPage loginPage) {
+        String pathGetCaptchaImage = loginPage.getHtmlContent().substring(startIndexDxCacheSrc, endIndexDxCacheSrc);
+
+        Pattern pattern = Pattern.compile("(DXB\\.axd\\?DXCache=.+?)\"", Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(loginPage.getHtmlContent());
+        if (matcher.find()) System.out.println(matcher.group(0));
         return hustBaseUrl + pathGetCaptchaImage;
     }
+
 
     /**
      * @return the HTML value of login page, as a String.
      */
-    public HustCttLoginPage getLoginPage() {
-        try (
-                CloseableHttpClient httpClient = HttpClients.createDefault();
-                CloseableHttpResponse response = httpClient.execute(new HttpGet(hustBaseUrl + loginPath))
-        ) {
-//            System.out.println("Time for sending Get request: " + (System.currentTimeMillis() - t) + " ms");
-            if (response.getCode() == 200) {
-                String content = EntityUtils.toString(response.getEntity());
-//                System.out.println("Time for parse content to String: " + (System.currentTimeMillis() - t) + " ms");
-                Header[] cookies = response.getHeaders("Set-Cookie");
-                for (Header cookie : cookies) {
-                    if (cookie.getValue().startsWith("ASP.NET_SessionId"))
-                        return new HustCttLoginPage(cookie.getValue().split(";")[0], content);
-                }
-            }
-            throw new RuntimeException("Cannot find [ASP.NET_SessionId] in header, current cookie: " + Arrays.toString(response.getHeaders("Set-Cookie")));
-        } catch (Exception e) {
-            log.error("Error when getting login page");
-            throw new RuntimeException(e);
-        }
+    public String predictCaptcha(byte[] imageByte) {
+        return "00000";
     }
-
 }
