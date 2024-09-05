@@ -67,6 +67,6 @@ public class LoginHustCttModel {
         Matcher eventValidationMatcher = eventValidationPattern.matcher(htmlContent);
         if (eventValidationMatcher.find()) eventValidation = eventValidationMatcher.group(1);
         else throw new RuntimeException("Cannot find eventValidation in .aspx");
-        // parse parameter
+        
     }
 }
