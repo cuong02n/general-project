@@ -96,7 +96,7 @@ public class LoginCttService {
             postRequest.setHeader("accept-encoding","gzip, deflate, br, zstd");
             postRequest.setHeader("upgrade-insecure-requests","1");
             CloseableHttpResponse response = client.execute(postRequest);
-            log.info("{}", (Object) postRequest.getHeaders());
+            log.info("{}", Arrays.toString(postRequest.getHeaders()));
             System.out.println(EntityUtils.toString(response.getEntity()));
         } catch (Exception e) {
             log.error("Cannot login: {} {}", loginModel, e.getMessage());
