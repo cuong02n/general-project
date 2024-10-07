@@ -57,16 +57,16 @@ public class LoginHustCttModel {
         ctl00$ctl00$contentPane$MainPanel$MainContent$ASPxCaptcha1$TB = captcha;
 
         Matcher viewStateMatcher = viewStatePattern.matcher(htmlContent);
-        if (viewStateMatcher.find()) viewState = viewStateMatcher.group();
+        if (viewStateMatcher.find()) viewState = viewStateMatcher.group(1);
         else throw new RuntimeException("Cannot find viewState in .aspx");
 
         Matcher viewStateGeneratorMatcher = viewStateGeneratorPattern.matcher(htmlContent);
-        if (viewStateGeneratorMatcher.find()) viewStateGenerator = viewStateGeneratorMatcher.group();
+        if (viewStateGeneratorMatcher.find()) viewStateGenerator = viewStateGeneratorMatcher.group(1);
         else throw new RuntimeException("Cannot find viewStateGenerator in .aspx");
 
         Matcher eventValidationMatcher = eventValidationPattern.matcher(htmlContent);
-        if (eventValidationMatcher.find()) eventValidation = eventValidationMatcher.group();
+        if (eventValidationMatcher.find()) eventValidation = eventValidationMatcher.group(1);
         else throw new RuntimeException("Cannot find eventValidation in .aspx");
-        // parse parameter
+        
     }
 }
