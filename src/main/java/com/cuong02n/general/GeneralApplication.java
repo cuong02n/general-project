@@ -1,5 +1,6 @@
 package com.cuong02n.general;
 
+import com.cuong02n.general.crawl.qldthust.CrawlQldtService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GeneralApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GeneralApplication.class, args);
+        var context = SpringApplication.run(GeneralApplication.class, args);
+        CrawlQldtService service = context.getBean(CrawlQldtService.class);
+        service.getStudentEducationData("20204524");
     }
 
 }
