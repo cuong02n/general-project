@@ -1,19 +1,43 @@
 package com.cuong02n.general;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.google.gwt.user.client.rpc.RpcRequestBuilder;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Test {
+    @RemoteServiceRelativePath("dataService")
+    public interface DataService extends RemoteService {
+        List<String> getAllRefBookIdFromCourseIds(List<String> courseIds);
+    }
+
+    public interface DataServiceAsync {
+        void getAllRefBookIdFromCourseIds(List<String> courseIds, AsyncCallback<List<String>> callback);
+    }
+
+    private final DataServiceAsync dataService = GWT.create(DataService.class);
+
+    public void sendRequest() {
+        List<String> courseIds = Arrays.asList("IT3080", "IT3090", "MI3052", "IT4490", "IT4501");
+
+        dataService.getAllRefBookIdFromCourseIds(courseIds, new AsyncCallback<List<String>>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                System.out.println("Error: " + caught.getMessage());
+            }
+
+            @Override
+            public void onSuccess(List<String> result) {
+                System.out.println("Received ref book IDs: " + result);
+            }
+        });
+    }
+
     public static void main(String[] args) {
-        String html = "src=\"/DXB.axd?DXCache=8b2af093-7683-093a-1f59-0cc94eff5ed8\" alt=";
-
-        // Compile the pattern
-        Pattern pattern = Pattern.compile("DXB\\.axd\\?DXCache=.+?\"");
-
-        // Create a matcher
-        Matcher matcher = pattern.matcher(html);
-        if (matcher.find())
-            System.out.println(matcher.group());
-        Pattern.compile("(DXB\\.axd\\?DXCache=.+?)\"", Pattern.MULTILINE).matcher(html).group(0);
+        new Test().sendRequest();
     }
 }

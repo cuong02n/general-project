@@ -1,11 +1,11 @@
 package com.cuong02n.general.crawl.qldthust;
 
-import com.cuong02n.general.util.HttpUtil;
+import com.cuong02n.general.common.util.HttpUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-import static com.cuong02n.general.util.GsonUtil.toJsonArray;
+import static com.cuong02n.general.common.util.GsonUtil.toJsonArray;
 
 @Service
 public class CrawlQldtService {
