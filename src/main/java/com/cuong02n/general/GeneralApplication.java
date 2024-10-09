@@ -1,6 +1,8 @@
 package com.cuong02n.general;
 
 import com.cuong02n.general.crawl.qldthust.CrawlQldtService;
+import com.google.gwt.user.client.rpc.SerializationStreamReader;
+import com.google.gwt.user.client.rpc.impl.AbstractSerializationStreamReader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,7 +12,8 @@ public class GeneralApplication {
     public static void main(String[] args) {
         var context = SpringApplication.run(GeneralApplication.class, args);
         CrawlQldtService service = context.getBean(CrawlQldtService.class);
-        service.getStudentEducationData("20204524");
+        service.getStudentEducationData("20204524","20241");
+
     }
 
 }
