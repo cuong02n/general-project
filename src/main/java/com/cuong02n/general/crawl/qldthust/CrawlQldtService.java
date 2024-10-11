@@ -24,10 +24,10 @@ public class CrawlQldtService {
     );
 
     public static String getStudentEducationData(String studentId, String semester)  {
-
         String payload = String.format(payloadPattern, studentId, semester);
         return HttpUtil.post(baseUrl + urlPath, headers, payload).substring(4);
     }
+
 
     public static void main(String[] args) {
 
