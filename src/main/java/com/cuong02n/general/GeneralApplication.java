@@ -8,9 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GeneralApplication {
 
     public static void main(String[] args) throws Exception {
-//        var context = SpringApplication.run(GeneralApplication.class, args);
         CrawlQldtMain.crawl(20241);
-        // crawl from 2018
     }
-
 }

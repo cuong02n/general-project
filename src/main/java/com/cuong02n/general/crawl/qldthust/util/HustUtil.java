@@ -1,6 +1,6 @@
 package com.cuong02n.general.crawl.qldthust.util;
 
-import com.cuong02n.general.common.util.GsonUtil;
+import com.cuong02n.general.common.util.JsonUtil;
 import com.cuong02n.general.crawl.qldthust.entity.StudentEducationData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -38,7 +38,7 @@ public class HustUtil {
     }
 
     public static StudentEducationData.Timetable getTimetable(String timetableString) {
-        JsonObject jsonObject = GsonUtil.toJsonObject(timetableString);
+        JsonObject jsonObject = JsonUtil.toJsonObject(timetableString);
         String place = jsonObject.get("place").getAsString();
         int fromIndex = jsonObject.get("from").getAsInt();
         int toIndex = jsonObject.get("to").getAsInt();
@@ -61,7 +61,7 @@ public class HustUtil {
 
     public static boolean isTimetable(String data) {
         if (!data.startsWith("{")) return false;
-        JsonObject jsonData = GsonUtil.toJsonObject(data);
+        JsonObject jsonData = JsonUtil.toJsonObject(data);
         return jsonData.has("day")
                 && jsonData.has("from")
                 && jsonData.has("to")

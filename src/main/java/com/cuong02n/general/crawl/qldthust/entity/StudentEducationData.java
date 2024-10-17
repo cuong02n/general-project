@@ -1,13 +1,12 @@
 package com.cuong02n.general.crawl.qldthust.entity;
 
 import com.cuong02n.general.base.BaseEntity;
-import com.cuong02n.general.common.util.GsonUtil;
+import com.cuong02n.general.common.util.JsonUtil;
 import com.google.gson.annotations.Expose;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.context.annotation.Description;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -32,7 +31,7 @@ public class StudentEducationData extends BaseEntity {
     String timetable;
 
     public void setTimetable(List<Timetable> timetable) {
-        this.timetable = GsonUtil.toString(timetable);
+        this.timetable = JsonUtil.toString(timetable);
     }
 
     @Embeddable

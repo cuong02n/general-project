@@ -1,13 +1,11 @@
 package com.cuong02n.general;
 
-import com.cuong02n.general.common.util.GsonUtil;
+import com.cuong02n.general.common.util.JsonUtil;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.google.gwt.user.client.rpc.RpcRequestBuilder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +40,7 @@ public class Test {
 
     public static void main(String[] args) {
         String test = "[{\"classIdInfo\":\"\",\"placeId\":-1,\"place\":\"TC-412\",\"week\":\"25-32,34-42\",\"date\":-1,\"dayTime\":2,\"day\":5,\"from\":4,\"to\":6,\"teacherId\":-1,\"teacherIds\":[],\"teacherNames\":[],\"lesson\":\"\",\"weeks\":[],\"lessonType\":\"\",\"status\":1,\"createdBy\":-1,\"classId\":-1}]";
-        JsonArray array = GsonUtil.toJsonArray(test);
+        JsonArray array = JsonUtil.toJsonArray(test);
         System.out.println(array);
     }
 }
