@@ -8,14 +8,16 @@ import com.google.gson.JsonObject;
 public class GsonUtil {
     private static final Gson gson = new Gson();
     private static final Gson gsonExpose = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-    public static JsonArray toJsonArray(String src){
+
+    public static JsonArray toJsonArray(String src) {
         return gson.fromJson(src, JsonArray.class);
     }
-    public static JsonObject toJsonObject(String src){
+
+    public static JsonObject toJsonObject(String src) {
         return gson.fromJson(src, JsonObject.class);
     }
 
-    public static String toString(Object src){
+    public static String toString(Object src) {
         return gson.toJson(src);
     }
 }
