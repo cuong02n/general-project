@@ -1,10 +1,16 @@
 package com.cuong02n.general.crawl.qldthust;
 
 import com.cuong02n.general.common.util.HttpUtil;
+import com.cuong02n.general.common.util.JsonUtil;
 import com.cuong02n.general.common.util.StringUtil;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class CrawlQldtService {
@@ -22,6 +28,53 @@ public class CrawlQldtService {
         String payload = String.format(payloadPattern, studentId, semester);
         headers.put("x-gwt-permutation", StringUtil.randomHexString(32));
         return HttpUtil.post(baseUrl + urlPath, headers, payload);
+    }
+
+
+    public static final Map<String, String> propertiesPathMap = new HashMap<>() {
+        {
+            put("absent", "a-a");
+            put("classId", "i");
+            put("classNote", "S-Z");
+            put("classGrade", "O-a");
+            put("fileProgressGrade", "S-ob-a");
+            put("fileFinalGrade", "S-Q-a");
+            put("progressGrade", "jb");
+            put("finalGrade", "v");
+            put("classType", "k");
+            put("courseId", "o");
+            put("courseName", "j");
+            put("credit", "S-u");
+            put("timetable", "S-j-a");
+
+            put("studentName", "tb");
+            put("studentId", "sb");
+            put("semester", "nb");
+            put("listTeacher", "S-Ob-a");
+            put("classExam", "S-D-a");
+            put("numberOfStudent", "S-Mb");
+        }
+    };
+
+    /**
+     *
+     * @param dataJson: each dataJson is an object
+     */
+    public static void getAndSaveData(JsonObject dataJson) {
+
+    }
+    public static void readFileAndSaveData(String filePath){
+        JsonObject fileObject = JsonUtil.loadJsonObject(new File(filePath));
+        JsonArray dataArray = fileObject.getAsJsonArray("a");
+
+    }
+
+    public static JsonElement getElement(JsonObject object, String jsonPath) {
+        String[] paths = jsonPath.split("-");
+        for (int i = 0; i < paths.length - 1; i++) {
+            object = object.getAsJsonObject(paths[i]);
+        }
+        return object.get(paths[paths.length - 1]);
     }
 
 

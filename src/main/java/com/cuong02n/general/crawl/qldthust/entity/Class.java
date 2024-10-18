@@ -17,6 +17,10 @@ public class Class extends BaseEntity {
     @Expose
     ClassPK classPK;
 
+    @Column(name = "class_type")
+    @Expose
+    String classType;
+
     @Column(name = "courseId")
     @Expose
     String courseId;
@@ -25,13 +29,27 @@ public class Class extends BaseEntity {
     @Expose
     String courseName;
 
-    @Column(name = "teacher_name")
+    @Column(name = "class_note")
     @Expose
-    String teacherName;
+    String classNote;
+
+    @Column(name = "list_teacher_name")
+    @Expose
+    String listTeacherName;
 
     @Column(name = "timetable")
     @Expose
     String timetable;
+
+    @Column(name = "file_progress_grade")
+    @Expose
+    String fileProgressGrade;
+
+    @Column(name = "file_final_grade")
+    @Expose
+    String fileFinalGrade;
+
+
 
     @Embeddable
     @AllArgsConstructor

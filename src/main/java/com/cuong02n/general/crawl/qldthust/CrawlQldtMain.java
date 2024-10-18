@@ -27,6 +27,9 @@ public class CrawlQldtMain {
             String data = CrawlQldtService.getStudentEducationData(String.valueOf(studentId), semester);
             if (data.length() > 100) {
                 File f = new File(baseDirectorySavedData + semester + "/" + studentId + ".json");
+                if(f.exists()) {
+                    System.out.println("Existed: "+f.getAbsolutePath());
+                }
                 Files.write(f.toPath(), data.getBytes());
                 runConvertGwtScript(f.getAbsolutePath());
                 continuous = 0;
@@ -41,14 +44,20 @@ public class CrawlQldtMain {
     }
 
 
-    public static void crawl(int semester) throws IOException{
+    public static void crawl(int semester) throws IOException {
         JsonObject startStop = JsonUtil.loadJsonObject(new File(startStopFilePath));
         JsonArray startStopSemester = startStop.getAsJsonArray(String.valueOf(semester));
 
         for (int i = 0; i < startStopSemester.size(); i += 2) {
             int startId = startStopSemester.get(i).getAsInt();
             int stopId = startStopSemester.get(i + 1).getAsInt();
-            crawl(semester,startId,stopId);
+            System.out.println("Start crawl, semester = " + semester + ", from " + startId + " to " + stopId);
+            crawl(semester, startId, stopId);
         }
+
+    }
+
+    public static void main(String[] args) throws Exception {
+        crawl(20241);
     }
 }
